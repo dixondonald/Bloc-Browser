@@ -69,7 +69,19 @@
     }
     
     self.view = mainView;
+    
 }
+
+-(void)welcomeAlert {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Welcome!"
+                                                                   message:@"Enter a URL in the address bar"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,6 +91,10 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
 
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [self performSelector:@selector(welcomeAlert)
+               withObject:nil afterDelay:0.0];
+    
 }
 
 
@@ -101,6 +117,7 @@
         thisButton.frame = CGRectMake(currentButtonX, CGRectGetMaxY(self.webView.frame), buttonWidth, itemHeight);
         currentButtonX += buttonWidth;
     }
+    
 }
 
 #pragma mark - UITextFieldDelegate
@@ -192,6 +209,7 @@
     
     self.textField.text = nil;
     [self updateButtonsAndTitle];
+    
 }
 
 - (void) addButtonTargets {
