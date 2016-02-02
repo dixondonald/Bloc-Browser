@@ -65,6 +65,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    
+}
+
 
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -79,7 +85,7 @@
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+//    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
 }
 
 #pragma mark - AwesomeFloatingToolbarDelegate
@@ -105,6 +111,27 @@
     if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
         toolbar.frame = potentialNewFrame;
     }
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithScale:(CGFloat)scale {
+//    UIView *view = toolbar;
+//    view.transform = CGAffineTransformScale(toolbar.transform, scale, scale);
+//    toolbar.transform = CGAffineTransformScale(toolbar.transform, scale, scale);
+//    
+//    if (CGRectContainsRect(self.view.bounds, view.frame)) {
+//        toolbar.frame = view.frame;
+//    }
+//
+    
+    CGPoint startingPoint = toolbar.frame.origin;
+    
+    CGRect potentialNewFrame = CGRectMake(startingPoint.x, startingPoint.y, CGRectGetWidth(toolbar.frame)*scale, CGRectGetHeight(toolbar.frame)*scale);
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+
+    
 }
 
 #pragma mark - UITextFieldDelegate
